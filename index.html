@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cek risiko kebakaran hutan dan lahan melalui foto, lokasi, dan kondisi sekitar.">
+  <title>FireSentry — Cek Risiko Karhutla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#beranda" aria-label="FireSentry beranda">
+      <span class="brand-mark">♨</span><span>FireSentry</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#cara-kerja">Cara kerja</a>
+      <a href="#fitur">Fitur</a>
+      <a href="#hasil">Contoh hasil</a>
+      <a href="#edukasi">Edukasi</a>
+      <a class="nav-cta" href="#cek-risiko">Cek sekarang</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero dark-section" id="beranda">
+      <div class="hero-copy">
+        <div class="eyebrow-pill"><span class="eyebrow-dot"></span> Deteksi dini karhutla untuk semua warga</div>
+        <h1>Foto lahan Anda.<br>Ketahui <span>risiko</span><br><span>apinya</span> sebelum<br>terlambat.</h1>
+        <p class="hero-description">Unggah foto tanah atau asap, pilih lokasi, dan dapatkan gambaran risiko kebakaran hutan dan lahan beserta saran tindakan.</p>
+        <div class="hero-actions">
+          <a class="button button-orange" href="#cek-risiko">Mulai analisis <span>↗</span></a>
+          <a class="button button-outline" href="#cara-kerja">Lihat cara kerja</a>
+        </div>
+        <div class="hero-note"><span class="note-icon">✓</span> Informasi awal untuk membantu kewaspadaan, bukan pengganti pemeriksaan petugas.</div>
+      </div>
+
+      <div class="checker-card" id="cek-risiko">
+        <div class="card-heading">
+          <div>
+            <h2>Cek risiko lahan</h2>
+            <p>Isi tiga langkah singkat.</p>
+          </div>
+          <span class="step-badge">01 / 03</span>
+        </div>
+        <form id="riskForm">
+          <label class="upload-zone" for="photoInput" id="uploadZone">
+            <input type="file" id="photoInput" accept="image/png,image/jpeg,image/webp" hidden>
+            <span class="upload-icon" aria-hidden="true">📷</span>
+            <strong>1. Unggah foto tanah atau asap</strong>
+            <span class="upload-help">JPG, PNG, atau WEBP, maksimal 5 MB</span>
+            <span class="file-name" id="fileName">Klik untuk memilih foto</span>
+          </label>
+          <div class="location-row">
+            <span class="field-icon">⌖</span>
+            <div class="location-copy">
+              <strong id="locationTitle">2. Pilih lokasi atau gunakan GPS</strong>
+              <span id="locationText">GPS opsional. Tanpa GPS, analisis foto tetap dapat dicoba.</span>
+            </div>
+            <button type="button" class="gps-button" id="gpsButton">Gunakan GPS</button>
+          </div>
+          <div class="live-weather-panel" id="weatherPanel" aria-live="polite">
+            <div class="weather-panel-heading"><strong>Cuaca langsung</strong><span id="weatherStatus">Aktif setelah GPS digunakan</span></div>
+            <div class="weather-grid">
+              <div><span>Suhu</span><strong id="weatherTemp">—</strong></div>
+              <div><span>Kelembapan</span><strong id="weatherHumidity">—</strong></div>
+              <div><span>Hujan</span><strong id="weatherRain">—</strong></div>
+              <div><span>Angin</span><strong id="weatherWind">—</strong></div>
+            </div>
+            <small id="weatherAttribution">Sumber: Open-Meteo. Memerlukan internet dan koordinat GPS.</small>
+          </div>
+          <div class="form-grid">
+            <label class="select-wrap">
+              <span class="sr-only">Jenis lahan</span>
+              <select id="landType" required>
+                <option value="">Jenis lahan</option>
+                <option value="Gambut">Gambut</option>
+                <option value="Hutan">Hutan</option>
+                <option value="Perkebunan">Perkebunan</option>
+                <option value="Semak belukar">Semak belukar</option>
+                <option value="Lahan pertanian">Lahan pertanian</option>
+                <option value="Tidak diketahui">Tidak diketahui</option>
+              </select>
+            </label>
+            <label class="select-wrap">
+              <span class="sr-only">Kondisi hujan terakhir</span>
+              <select id="rainfall" required>
+                <option value="">Hujan terakhir</option>
+                <option value="Hari ini">Hari ini</option>
+                <option value="1–3 hari lalu">1–3 hari lalu</option>
+                <option value="4–7 hari lalu">4–7 hari lalu</option>
+                <option value="Lebih dari 7 hari">Lebih dari 7 hari</option>
+                <option value="Tidak diketahui">Tidak diketahui</option>
+              </select>
+            </label>
+          </div>
+          <button class="button button-green submit-button" type="submit">3. Analisis risiko <span>→</span></button>
+          <p class="form-disclaimer">Model AI berjalan di browser dan cuaca diambil dari Open-Meteo setelah GPS diizinkan. Hasil klasifikasi gambar bukan konfirmasi kebakaran.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section how-section" id="cara-kerja">
+      <div class="section-heading">
+        <span class="section-kicker">CARA KERJA</span>
+        <h2>Dari foto ke peringatan dalam<br class="desktop-break"> tiga langkah</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-number">01</div>
+          <h3>Kirim foto dan data</h3>
+          <p>Foto tanah, vegetasi kering, atau asap. Tambahkan lokasi dan kondisi sekitar.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">02</div>
+          <h3>AI menganalisis</h3>
+          <p>Model dapat dirancang untuk mengenali ciri visual dan menggabungkannya dengan cuaca serta titik panas terbaru.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">03</div>
+          <h3>Terima hasil dan saran</h3>
+          <p>Dapatkan tingkat risiko, faktor yang perlu diperhatikan, dan langkah kewaspadaan yang bisa dilakukan.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section features-section" id="fitur">
+      <div class="section-heading">
+        <span class="section-kicker">FITUR</span>
+        <h2>Satu halaman, empat<br>kemampuan utama</h2>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon">▣</div>
+          <div><h3>Klasifikasi jenis tanah</h3><p>Membantu mengidentifikasi kategori lahan berdasarkan data dan foto yang tersedia. Hasil perlu divalidasi sebelum digunakan untuk keputusan lapangan.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">♨</div>
+          <div><h3>Deteksi indikasi api dan asap</h3><p>Foto dapat diperiksa untuk mencari indikasi visual api atau asap. Pemeriksaan otomatis bukan jaminan bahwa kebakaran pasti terjadi.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">☁</div>
+          <div><h3>Data cuaca dan lokasi</h3><p>Lokasi dapat menjadi dasar untuk menghubungkan data cuaca dan sumber titik panas, setelah layanan datanya dikonfigurasi.</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">▤</div>
+          <div><h3>Laporan dan pemeriksaan hoaks</h3><p>Laporan bisa dilengkapi waktu, lokasi, dan foto agar lebih mudah ditinjau petugas. Informasi yang belum terverifikasi perlu ditandai.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="results-section dark-section" id="hasil">
+      <div class="results-copy">
+        <span class="section-kicker">HASIL ANALISIS</span>
+        <h2>Bukan sekadar angka,<br>tapi alasan di baliknya</h2>
+        <p>Hasil analisis yang baik menjelaskan faktor yang memengaruhi penilaian agar warga dan petugas memahami hal yang perlu diperiksa lebih dahulu.</p>
+        <ul class="orange-list">
+          <li>Tingkat risiko dan dasar penilaiannya</li>
+          <li>Faktor penyebab dalam bahasa sederhana</li>
+          <li>Saran tindakan dan opsi pelaporan</li>
+        </ul>
+      </div>
+      <article class="result-card" id="resultCard" aria-live="polite">
+        <div class="result-label">HASIL ANALISIS AWAL</div>
+        <div class="result-title-row"><h3 id="riskTitle">Risiko simulasi sedang</h3><strong id="riskPercent">38%</strong></div>
+        <div class="risk-chart" role="img" aria-label="Grafik skala risiko simulasi dari 0 sampai 100 persen">
+          <div class="risk-chart-track"><span class="risk-chart-marker" id="riskMarker" style="left:38%"><span id="riskMarkerLabel">38%</span></span></div>
+          <div class="risk-chart-ticks"><span>0%</span><span>35%</span><span>60%</span><span>100%</span></div>
+          <div class="risk-chart-zones"><span class="zone-low">Rendah<br><small>0–34%</small></span><span class="zone-mid">Sedang<br><small>35–59%</small></span><span class="zone-high">Tinggi<br><small>60–100%</small></span></div>
+        </div>
+        <p class="chart-caption">Indikator menunjukkan skor simulasi pada skala 0–100, bukan probabilitas kebakaran yang tervalidasi.</p>
+        <h4>Faktor utama</h4>
+        <div class="factor-tags" id="factorTags"><span>Tanah gambut</span><span>Tanpa hujan beberapa hari</span><span>Suhu tinggi</span></div>
+        <div class="advice-box"><strong>Yang sebaiknya dilakukan</strong><p id="adviceText">Jangan membakar lahan. Bila melihat api atau asap mencurigakan, menjauh ke tempat aman dan segera hubungi petugas setempat.</p></div>
+        <a class="button button-green report-button" href="#edukasi">Pelajari cara melapor <span>→</span></a>
+        <p class="sample-warning" id="sampleWarning">Skor risiko berbasis aturan sederhana, bukan probabilitas tervalidasi. Periksa hasil AI dan cuaca secara terpisah.</p>
+        <p class="ai-result-line" id="aiResultLine">AI foto: belum dianalisis.</p>
+      </article>
+    </section>
+
+    <section class="education-section" id="edukasi">
+      <div class="education-inner">
+        <div>
+          <span class="section-kicker">TETAP WASPADA</span>
+          <h2>Melihat indikasi kebakaran?</h2>
+          <p>Utamakan keselamatan. Jangan mendekati api atau asap tebal. Catat lokasi jika aman dan laporkan melalui saluran resmi BPBD atau layanan darurat setempat.</p>
+        </div>
+        <a class="button button-orange" href="https://www.bnpb.go.id/" target="_blank" rel="noopener noreferrer">Kunjungi BNPB <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#beranda"><span class="brand-mark">♨</span><span>FireSentry</span></a>
+    <p>Prototype pemantauan risiko kebakaran hutan dan lahan.</p>
+    <span>© 2026 FireSentry · Versi demonstrasi</span>
+  </footer>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
